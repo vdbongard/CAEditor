@@ -1,20 +1,21 @@
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>CAEditor</title>
+    <title>CA Editor</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<h1>CAEditor</h1>
-<div class="mb-1">
-    <a class="waves-effect waves-light btn"><i class="material-icons">play_arrow</i></a>
-    <a class="waves-effect waves-light btn"><i class="material-icons">skip_next</i></a>
-    <a class="waves-effect waves-light btn"><i class="material-icons">shuffle</i></a>
+<h1>CA Editor</h1>
+<div class="flex mb-1">
+    <a id="playButton" class="waves-effect waves-light btn"><i class="material-icons">play_arrow</i></a>
+    <a id="nextStepButton" class="waves-effect waves-light btn"><i class="material-icons">skip_next</i></a>
+    <a id="randomizeButton" class="waves-effect waves-light btn"><i class="material-icons">shuffle</i></a>
+    <a id="clearButton" class="waves-effect waves-light btn"><i class="material-icons">delete</i></a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
