@@ -1,3 +1,7 @@
 body {
     background-color: #EEEEEE;
 }
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
