@@ -10,12 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<h1>CA Editor</h1>
-<div class="flex mb-1">
-    <a id="playButton" class="waves-effect waves-light btn"><i class="material-icons">play_arrow</i></a>
-    <a id="nextStepButton" class="waves-effect waves-light btn"><i class="material-icons">skip_next</i></a>
-    <a id="randomizeButton" class="waves-effect waves-light btn"><i class="material-icons">shuffle</i></a>
-    <a id="clearButton" class="waves-effect waves-light btn"><i class="material-icons">delete</i></a>
+<div class="container flex mb-1">
+    <h1 class="ta-c">CA Editor</h1>
+
+    <div>
+        <canvas id="main" style="user-select: none"></canvas>
+    </div>
+
+    <div class="buttonRow">
+        <a id="playButton" class="waves-effect waves-light btn"><i class="material-icons">play_arrow</i></a>
+        <a id="nextStepButton" class="waves-effect waves-light btn"><i class="material-icons">skip_next</i></a>
+        <a id="randomizeButton" class="waves-effect waves-light btn"><i class="material-icons">shuffle</i></a>
+        <a id="clearButton" class="waves-effect waves-light btn"><i class="material-icons">delete</i></a>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

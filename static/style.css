@@ -2,6 +2,26 @@ body {
     background-color: #EEEEEE;
 }
 
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.buttonRow {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonRow .btn {
+    margin: 0 1rem;
+}
+
 .mb-1 {
     margin-bottom: 1rem;
+}
+
+.ta-c {
+    text-align: center;
 }

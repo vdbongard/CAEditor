@@ -27,5 +27,9 @@ randomizeButton.addEventListener('click', () => {
 })
 
 clearButton.addEventListener('click', () => {
+  if (caEditor.isPlaying) {
+    playButton.firstChild.innerHTML = 'play_arrow'
+    caEditor.pause()
+  }
   caEditor.clear()
 })
