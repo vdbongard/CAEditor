@@ -19,7 +19,7 @@ export default class Cell extends Graphics {
   }
 
   static get activeCellColor () {
-    return 0xBBBBBB
+    return 0x666666
   }
 
   get active () {

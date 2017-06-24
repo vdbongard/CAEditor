@@ -8,14 +8,20 @@ body {
     margin: 0 auto;
 }
 
-.buttonRow {
-    margin: 1rem;
+.canvas {
     display: flex;
     justify-content: center;
 }
 
+.buttonRow {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .buttonRow .btn {
-    margin: 0 1rem;
+    margin: 0.5rem;
 }
 
 .mb-1 {

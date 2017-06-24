@@ -4,7 +4,8 @@ import Cell from './Cell'
 
 export default class CAEditor {
   constructor () {
-    this.canvasSize = Math.min(window.innerWidth, 600)
+    this.maxSize = 600
+    this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.lineWidth = 1
     this.size = this.canvasSize - this.lineWidth
     this.minSpacing = 15
@@ -17,6 +18,7 @@ export default class CAEditor {
     this.fps = 60
     this.maxDelta = 60 / this.fps
     this.delta = this.maxDelta
+    this.overlappingEdge = true
 
     this.app = new Application({
       width: this.canvasSize,
@@ -37,6 +39,7 @@ export default class CAEditor {
     this.app.stage.hitArea = new Rectangle(0, 0, this.canvasSize, this.canvasSize)
     this.app.stage.interactive = true
     this.app.stage.buttonMode = true
+    this.app.view.style.maxHeight = this.maxSize
 
     // create all cells
     for (let x = 0; x < this.count; x++)
@@ -77,14 +80,26 @@ export default class CAEditor {
       for (let y = 0; y < this.count; y++) {
         let neighborCount = 0
 
-        if (this.cells[x - 1] && this.cells[x - 1][y - 1] && this.cells[x - 1][y - 1].active) neighborCount++
-        if (this.cells[x][y - 1] && this.cells[x][y - 1].active) neighborCount++
-        if (this.cells[x + 1] && this.cells[x + 1][y - 1] && this.cells[x + 1][y - 1].active) neighborCount++
-        if (this.cells[x - 1] && this.cells[x - 1][y] && this.cells[x - 1][y].active) neighborCount++
-        if (this.cells[x + 1] && this.cells[x + 1][y] && this.cells[x + 1][y].active) neighborCount++
-        if (this.cells[x - 1] && this.cells[x - 1][y + 1] && this.cells[x - 1][y + 1].active) neighborCount++
-        if (this.cells[x][y + 1] && this.cells[x][y + 1].active) neighborCount++
-        if (this.cells[x + 1] && this.cells[x + 1][y + 1] && this.cells[x + 1][y + 1].active) neighborCount++
+        if (this.overlappingEdge) {
+          if (this.cells[CAEditor.mod(x - 1, this.count)][CAEditor.mod(y - 1, this.count)].active) neighborCount++
+          if (this.cells[x][CAEditor.mod(y - 1, this.count)].active) neighborCount++
+          if (this.cells[(x + 1) % this.count][CAEditor.mod(y - 1, this.count)].active) neighborCount++
+          if (this.cells[CAEditor.mod(x - 1, this.count)][y].active) neighborCount++
+          if (this.cells[(x + 1) % this.count][y].active) neighborCount++
+          if (this.cells[CAEditor.mod(x - 1, this.count)][(y + 1) % this.count].active) neighborCount++
+          if (this.cells[x][(y + 1) % this.count].active) neighborCount++
+          if (this.cells[(x + 1) % this.count][(y + 1) % this.count].active) neighborCount++
+        }
+        else {
+          if (this.cells[x - 1] && this.cells[x - 1][y - 1] && this.cells[x - 1][y - 1].active) neighborCount++
+          if (this.cells[x][y - 1] && this.cells[x][y - 1].active) neighborCount++
+          if (this.cells[x + 1] && this.cells[x + 1][y - 1] && this.cells[x + 1][y - 1].active) neighborCount++
+          if (this.cells[x - 1] && this.cells[x - 1][y] && this.cells[x - 1][y].active) neighborCount++
+          if (this.cells[x + 1] && this.cells[x + 1][y] && this.cells[x + 1][y].active) neighborCount++
+          if (this.cells[x - 1] && this.cells[x - 1][y + 1] && this.cells[x - 1][y + 1].active) neighborCount++
+          if (this.cells[x][y + 1] && this.cells[x][y + 1].active) neighborCount++
+          if (this.cells[x + 1] && this.cells[x + 1][y + 1] && this.cells[x + 1][y + 1].active) neighborCount++
+        }
 
         if (!this.cells[x][y].active && neighborCount === 3) {
           if (!newState[x]) newState[x] = []
@@ -123,5 +138,9 @@ export default class CAEditor {
     const x = Math.floor(point.x / this.spacing)
     const y = Math.floor(point.y / this.spacing)
     this.cells[x][y].toggle()
+  }
+
+  static mod (n, m) {
+    return ((n % m) + m) % m
   }
 }
