@@ -5,15 +5,15 @@ import Cell from './Cell'
 export default class CAEditor {
   constructor () {
     this.maxSize = 600
-    this.lineWidth = 1
+    this._lineWidth = 1
     this.minSpacing = 10
     this.fps = 60
     this.overlappingEdge = true
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
-    this.size = this.canvasSize - this.lineWidth
-    this.count = Math.floor(this.size / this.minSpacing)
-    this.spacing = this.size / this.count
+    this.size = this.canvasSize - this._lineWidth
+    this._count = Math.min(Math.floor(this.size / this.minSpacing), 30)
+    this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
     this.cells = []
     this.cellContainer = new Container()
@@ -32,6 +32,29 @@ export default class CAEditor {
     this.grid = new Grid(this.x, this.y, this.size, this.count, this.lineWidth)
 
     this._init()
+  }
+
+  get count () {
+    return this._count
+  }
+
+  set count (value) {
+    if (this._count !== value) {
+      this._count = value
+      this.spacing = this.size / this._count
+      this._redraw()
+    }
+  }
+
+  get lineWidth () {
+    return this._lineWidth
+  }
+
+  set lineWidth (value) {
+    if (this._lineWidth !== value) {
+      this._lineWidth = value
+      this._redraw()
+    }
   }
 
   _init () {
@@ -56,6 +79,25 @@ export default class CAEditor {
     // events
     this.app.stage
       .on('pointerdown', (evt) => this._onDragStart(evt))
+  }
+
+  _redraw () {
+    this.cellContainer.removeChildren()
+    this.cells = []
+    this.app.stage.removeChild(this.grid)
+
+    this.size = this.canvasSize - this.lineWidth
+    this.spacing = this.size / this._count
+    this.x = this.y = (this.canvasSize - this.size) / 2
+    this.grid = new Grid(this.x, this.y, this.size, this.count, this.lineWidth)
+    this.app.stage.addChild(this.grid)
+    // create all cells
+    for (let x = 0; x < this.count; x++)
+      for (let y = 0; y < this.count; y++) {
+        if (!this.cells[x]) this.cells[x] = []
+        this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing)
+        this.cellContainer.addChild(this.cells[x][y])
+      }
   }
 
   play () {

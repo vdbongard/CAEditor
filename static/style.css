@@ -25,10 +25,14 @@ body {
     margin: 0.5rem;
 }
 
+.settings input[type=number] {
+    max-width: 50px
+}
+
 .setting {
     display: flex;
     align-items: center;
-    min-height: 45px;
+    height: 45px;
 }
 
 .setting span {

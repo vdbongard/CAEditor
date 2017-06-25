@@ -1,5 +1,8 @@
 import CAEditor from './CAEditor'
-import $ from 'jquery'
+
+$(document).ready(() => { // eslint-disable-line no-undef
+  $('.button-collapse').sideNav() // eslint-disable-line no-undef
+})
 
 const caEditor = new CAEditor()
 
@@ -8,6 +11,8 @@ const nextStepButton = document.getElementById('nextStepButton')
 const randomizeButton = document.getElementById('randomizeButton')
 const clearButton = document.getElementById('clearButton')
 const overlappingEdgeSwitch = document.getElementById('overlappingEdgeSwitch')
+const cellCountInput = document.getElementById('cellCountInput')
+const lineWidthInput = document.getElementById('lineWidthInput')
 
 playButton.addEventListener('click', () => {
   if (caEditor.isPlaying) {
@@ -41,6 +46,16 @@ overlappingEdgeSwitch.addEventListener('change', () => {
   caEditor.overlappingEdge = !!overlappingEdgeSwitch.checked
 })
 
-$(document).ready(() => {
-  $('.button-collapse').sideNav()
+cellCountInput.value = caEditor.count
+cellCountInput.addEventListener('input', () => {
+  const number = parseInt(cellCountInput.value)
+  if (!isNaN(number))
+    caEditor.count = number
+})
+
+lineWidthInput.value = caEditor.lineWidth
+lineWidthInput.addEventListener('input', () => {
+  const number = parseInt(lineWidthInput.value)
+  if (!isNaN(number))
+    caEditor.lineWidth = number
 })
