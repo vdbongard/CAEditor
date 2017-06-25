@@ -1,24 +1,26 @@
-import { Application, Rectangle, Container } from 'pixi.js'
+import { Application, Rectangle, Container, Point } from 'pixi.js'
 import Grid from './Grid'
 import Cell from './Cell'
 
 export default class CAEditor {
   constructor () {
     this.maxSize = 600
-    this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.lineWidth = 1
+    this.minSpacing = 10
+    this.fps = 60
+    this.overlappingEdge = true
+
+    this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.size = this.canvasSize - this.lineWidth
-    this.minSpacing = 15
     this.count = Math.floor(this.size / this.minSpacing)
     this.spacing = this.size / this.count
     this.x = this.y = (this.canvasSize - this.size) / 2
     this.cells = []
     this.cellContainer = new Container()
     this.isPlaying = false
-    this.fps = 60
     this.maxDelta = 60 / this.fps
     this.delta = this.maxDelta
-    this.overlappingEdge = true
+    this.previousPoint = new Point(-1, -1)
 
     this.app = new Application({
       width: this.canvasSize,
@@ -49,9 +51,12 @@ export default class CAEditor {
         this.cellContainer.addChild(this.cells[x][y])
       }
 
+    this._onDragMove = this._onDragMove.bind(this)
+    this._onDragEnd = this._onDragEnd.bind(this)
+
     // events
-    this.app.stage.on('click', (evt) => this._onClick(evt))
-    this.app.stage.on('tap', (evt) => this._onClick(evt))
+    this.app.stage
+      .on('pointerdown', (evt) => this._onDragStart(evt))
   }
 
   play () {
@@ -133,11 +138,49 @@ export default class CAEditor {
         this.cells[x][y].active = false
   }
 
-  _onClick (evt) {
+  _onDragStart (evt) {
+    this.app.stage
+      .on('pointermove', this._onDragMove)
+      .on('pointerup', this._onDragEnd)
+      .on('pointerupoutside', this._onDragEnd)
+
+    const startingPoint = this._evtToGridPoint(evt)
+    this.startingState = this.cells[startingPoint.x][startingPoint.y].active
+  }
+
+  _onDragEnd (evt) {
+    this.app.stage
+      .off('pointermove', this._onDragMove)
+      .off('pointerup', this._onDragEnd)
+      .off('pointerupoutside', this._onDragEnd)
+
+    if (this.previousPoint.equals(new Point(-1, -1))) {
+      const point = this._evtToGridPoint(evt)
+      this.cells[point.x][point.y].active = !this.startingState
+    }
+
+    this.previousPoint.x = this.previousPoint.y = -1
+  }
+
+  _onDragMove (evt) {
+    const currentPoint = this._evtToGridPoint(evt)
+
+    if (currentPoint && !currentPoint.equals(this.previousPoint)) {
+      this.previousPoint = currentPoint
+      this.cells[currentPoint.x][currentPoint.y].active = !this.startingState
+    }
+  }
+
+  _evtToGridPoint (evt) {
     const point = evt.data.getLocalPosition(this.app.stage)
-    const x = Math.floor(point.x / this.spacing)
-    const y = Math.floor(point.y / this.spacing)
-    this.cells[x][y].toggle()
+
+    point.x = Math.floor(point.x / this.spacing)
+    point.y = Math.floor(point.y / this.spacing)
+
+    if (point.x >= this.count || point.x < 0 || point.y >= this.count || point.y < 0)
+      return null
+
+    return point
   }
 
   static mod (n, m) {
