@@ -41,7 +41,6 @@ export default class CAEditor {
     this.app.stage.hitArea = new Rectangle(0, 0, this.canvasSize, this.canvasSize)
     this.app.stage.interactive = true
     this.app.stage.buttonMode = true
-    this.app.view.style.maxHeight = this.maxSize
 
     // create all cells
     for (let x = 0; x < this.count; x++)
@@ -60,23 +59,27 @@ export default class CAEditor {
   }
 
   play () {
-    this.isPlaying = true
+    if (!this.isPlaying) {
+      this.isPlaying = true
 
-    this.playFunction = (delta) => {
-      this.delta += delta
-      if (this.delta >= this.maxDelta) {
-        this.delta = 0
-        this.nextStep()
+      this.playFunction = (delta) => {
+        this.delta += delta
+        if (this.delta >= this.maxDelta) {
+          this.delta = 0
+          this.nextStep()
+        }
       }
-    }
 
-    this.app.ticker.add(this.playFunction)
+      this.app.ticker.add(this.playFunction)
+    }
   }
 
   pause () {
-    this.isPlaying = false
-    this.delta = this.maxDelta
-    this.app.ticker.remove(this.playFunction)
+    if (this.isPlaying) {
+      this.isPlaying = false
+      this.delta = this.maxDelta
+      this.app.ticker.remove(this.playFunction)
+    }
   }
 
   nextStep () {
@@ -139,6 +142,10 @@ export default class CAEditor {
   }
 
   _onDragStart (evt) {
+    if (this.isPlaying) {
+      this.wasPlaying = true
+      this.pause()
+    }
     this.app.stage
       .on('pointermove', this._onDragMove)
       .on('pointerup', this._onDragEnd)
@@ -149,6 +156,10 @@ export default class CAEditor {
   }
 
   _onDragEnd (evt) {
+    if (this.wasPlaying) {
+      this.wasPlaying = false
+      this.play()
+    }
     this.app.stage
       .off('pointermove', this._onDragMove)
       .off('pointerup', this._onDragEnd)
