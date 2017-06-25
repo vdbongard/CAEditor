@@ -10,9 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<div class="container flex mb-1">
-    <h1 class="ta-c">CA Editor</h1>
 
+<nav>
+    <div class="nav-wrapper row">
+        <div class="col s12">
+            <a href="#" class="brand-logo center">CA Editor</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">About</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container flex mb-1">
     <div class="canvas">
         <canvas id="main" style="user-select: none"></canvas>
     </div>
@@ -22,6 +36,18 @@
         <a id="nextStepButton" class="waves-effect waves-light btn"><i class="material-icons">skip_next</i></a>
         <a id="randomizeButton" class="waves-effect waves-light btn"><i class="material-icons">shuffle</i></a>
         <a id="clearButton" class="waves-effect waves-light btn"><i class="material-icons">delete</i></a>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Settings</span>
+            <div class="settings">
+                <div class="setting">
+                    <span>Overlapping edge</span>
+                    <div class="switch"><label><input id="overlappingEdgeSwitch" type="checkbox"><span class="lever"></span></label></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

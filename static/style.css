@@ -9,6 +9,7 @@ body {
 }
 
 .canvas {
+    margin: 1rem 0;
     display: flex;
     justify-content: center;
 }
@@ -22,6 +23,16 @@ body {
 
 .buttonRow .btn {
     margin: 0.5rem;
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    min-height: 45px;
+}
+
+.setting span {
+    flex: 1
 }
 
 .mb-1 {
