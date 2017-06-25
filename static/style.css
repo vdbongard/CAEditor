@@ -14,6 +14,10 @@ body {
     justify-content: center;
 }
 
+.canvas #main {
+    margin: 0;
+}
+
 .buttonRow {
     margin: 1rem 0;
     display: flex;
@@ -27,6 +31,19 @@ body {
 
 .settings input[type=number] {
     max-width: 50px
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+    background-color: #2196F3;
+}
+
+.switch label input[type=checkbox]:checked + .lever {
+    background-color: #9ed1fa;
+}
+
+input[type=number]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
 }
 
 .setting {
