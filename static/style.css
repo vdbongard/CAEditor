@@ -29,8 +29,13 @@ body {
     margin: 0.5rem;
 }
 
+.settings .input-field {
+    margin-top: 0;
+}
+
 .settings input[type=number] {
-    max-width: 50px
+    width: 36px;
+    margin: 0 16px;
 }
 
 .switch label input[type=checkbox]:checked + .lever:after {
@@ -44,6 +49,11 @@ body {
 input[type=number]:not(.browser-default):focus:not([readonly]) {
     border-bottom: 1px solid #2196F3;
     box-shadow: 0 1px 0 0 #2196F3;
+}
+
+input[type=checkbox]:checked:not(:disabled) ~ .lever:active::before, input[type=checkbox]:checked:not(:disabled).tabbed:focus ~ .lever::before,
+.switch label .lever:before {
+    background-color: rgba(158, 209, 250, 0.15);
 }
 
 .setting {
