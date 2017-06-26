@@ -9,6 +9,8 @@ export default class CAEditor {
     this.minSpacing = 10
     this.fps = 60
     this.overlappingEdge = true
+    this.survives = [2, 3]
+    this.born = [3]
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.size = this.canvasSize - this._lineWidth
@@ -29,7 +31,7 @@ export default class CAEditor {
       transparent: true
     })
 
-    this.grid = new Grid(this.x, this.y, this.size, this.count, this.lineWidth)
+    this.grid = null
 
     this._init()
   }
@@ -59,19 +61,10 @@ export default class CAEditor {
 
   _init () {
     this.app.stage.addChild(this.cellContainer)
-    this.app.stage.addChild(this.grid)
 
     this.app.stage.hitArea = new Rectangle(0, 0, this.canvasSize, this.canvasSize)
     this.app.stage.interactive = true
     this.app.stage.buttonMode = true
-
-    // create all cells
-    for (let x = 0; x < this.count; x++)
-      for (let y = 0; y < this.count; y++) {
-        if (!this.cells[x]) this.cells[x] = []
-        this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing)
-        this.cellContainer.addChild(this.cells[x][y])
-      }
 
     this._onDragMove = this._onDragMove.bind(this)
     this._onDragEnd = this._onDragEnd.bind(this)
@@ -79,18 +72,25 @@ export default class CAEditor {
     // events
     this.app.stage
       .on('pointerdown', (evt) => this._onDragStart(evt))
+
+    this._redraw()
   }
 
   _redraw () {
+    // reset
     this.cellContainer.removeChildren()
     this.cells = []
     this.app.stage.removeChild(this.grid)
 
+    // calc new values
     this.size = this.canvasSize - this.lineWidth
     this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
+
+    // create grid
     this.grid = new Grid(this.x, this.y, this.size, this.count, this.lineWidth)
     this.app.stage.addChild(this.grid)
+
     // create all cells
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++) {
@@ -151,11 +151,11 @@ export default class CAEditor {
           if (this.cells[x + 1] && this.cells[x + 1][y + 1] && this.cells[x + 1][y + 1].active) neighborCount++
         }
 
-        if (!this.cells[x][y].active && neighborCount === 3) {
+        if (!this.cells[x][y].active && this.born.indexOf(neighborCount) >= 0) {
           if (!newState[x]) newState[x] = []
           newState[x][y] = 1
         }
-        else if (this.cells[x][y].active && (neighborCount < 2 || neighborCount > 3)) {
+        else if (this.cells[x][y].active && this.survives.indexOf(neighborCount) < 0) {
           if (!newState[x]) newState[x] = []
           newState[x][y] = 0
         }

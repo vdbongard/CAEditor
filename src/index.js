@@ -2,6 +2,7 @@ import CAEditor from './CAEditor'
 
 $(document).ready(() => { // eslint-disable-line no-undef
   $('.button-collapse').sideNav() // eslint-disable-line no-undef
+  $('select').material_select() // eslint-disable-line no-undef
 })
 
 const caEditor = new CAEditor()
@@ -13,6 +14,8 @@ const clearButton = document.getElementById('clearButton')
 const overlappingEdgeSwitch = document.getElementById('overlappingEdgeSwitch')
 const cellCountInput = document.getElementById('cellCountInput')
 const lineWidthInput = document.getElementById('lineWidthInput')
+const survivesSelect = document.getElementById('survivesSelect')
+const bornSelect = document.getElementById('bornSelect')
 
 playButton.addEventListener('click', () => {
   if (caEditor.isPlaying) {
@@ -59,3 +62,25 @@ lineWidthInput.addEventListener('input', () => {
   if (!isNaN(number))
     caEditor.lineWidth = number
 })
+
+for (let i = 0; i < caEditor.survives.length; i++)
+  survivesSelect.options[caEditor.survives[i] + 1].selected = true
+survivesSelect.onchange = () => {
+  const options = []
+
+  for (let i = 1; i < survivesSelect.options.length; i++)
+    if (survivesSelect.options[i].selected) options.push(parseInt(survivesSelect.options[i].value))
+
+  caEditor.survives = options
+}
+
+for (let i = 0; i < caEditor.born.length; i++)
+  bornSelect.options[caEditor.born[i] + 1].selected = true
+bornSelect.onchange = () => {
+  const options = []
+
+  for (let i = 1; i < bornSelect.options.length; i++)
+    if (bornSelect.options[i].selected) options.push(parseInt(bornSelect.options[i].value))
+
+  caEditor.born = options
+}
