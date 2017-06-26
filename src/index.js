@@ -16,6 +16,7 @@ const cellCountInput = document.getElementById('cellCountInput')
 const lineWidthInput = document.getElementById('lineWidthInput')
 const survivesSelect = document.getElementById('survivesSelect')
 const bornSelect = document.getElementById('bornSelect')
+const randomProbabilityInput = document.getElementById('randomProbabilityInput')
 
 playButton.addEventListener('click', () => {
   if (caEditor.isPlaying) {
@@ -84,3 +85,10 @@ bornSelect.onchange = () => {
 
   caEditor.born = options
 }
+
+randomProbabilityInput.value = caEditor.randomProbability
+randomProbabilityInput.addEventListener('input', () => {
+  const number = parseInt(randomProbabilityInput.value)
+  if (!isNaN(number))
+    caEditor.randomProbability = number
+})

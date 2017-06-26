@@ -33,7 +33,8 @@ body {
     margin-top: 0;
 }
 
-.settings .select-wrapper input.select-dropdown {
+.settings input[type=number], .select-wrapper input.select-dropdown {
+    height: 2rem;
     margin: 0;
 }
 

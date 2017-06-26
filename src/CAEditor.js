@@ -11,6 +11,7 @@ export default class CAEditor {
     this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
+    this.randomProbability = 20
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.size = this.canvasSize - this._lineWidth
@@ -174,7 +175,7 @@ export default class CAEditor {
   randomizeCells () {
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++)
-        this.cells[x][y].active = Math.random() > 0.8
+        this.cells[x][y].active = Math.random() > (1 - this.randomProbability / 100)
   }
 
   clear () {
