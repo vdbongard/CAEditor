@@ -7,7 +7,7 @@ export default class CAEditor {
     this.maxSize = 600
     this._lineWidth = 1
     this.minSpacing = 10
-    this.fps = 60
+    this._fps = 60
     this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
@@ -15,13 +15,13 @@ export default class CAEditor {
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.size = this.canvasSize - this._lineWidth
-    this._count = Math.min(Math.floor(this.size / this.minSpacing), 30)
+    this._count = Math.min(Math.floor(this.size / this.minSpacing), 50)
     this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
     this.cells = []
     this.cellContainer = new Container()
     this.isPlaying = false
-    this.maxDelta = 60 / this.fps
+    this.maxDelta = 60 / this._fps
     this.delta = this.maxDelta
     this.previousPoint = new Point(-1, -1)
 
@@ -57,6 +57,17 @@ export default class CAEditor {
     if (this._lineWidth !== value) {
       this._lineWidth = value
       this._redraw()
+    }
+  }
+
+  get fps () {
+    return this._fps
+  }
+
+  set fps (value) {
+    if (this._fps !== value) {
+      this._fps = value
+      this.maxDelta = 60 / this._fps
     }
   }
 

@@ -17,6 +17,7 @@ const lineWidthInput = document.getElementById('lineWidthInput')
 const survivesSelect = document.getElementById('survivesSelect')
 const bornSelect = document.getElementById('bornSelect')
 const randomProbabilityInput = document.getElementById('randomProbabilityInput')
+const fpsInput = document.getElementById('fpsInput')
 
 playButton.addEventListener('click', () => {
   if (caEditor.isPlaying) {
@@ -91,4 +92,11 @@ randomProbabilityInput.addEventListener('input', () => {
   const number = parseInt(randomProbabilityInput.value)
   if (!isNaN(number))
     caEditor.randomProbability = number
+})
+
+fpsInput.value = caEditor.fps
+fpsInput.addEventListener('input', () => {
+  const number = parseInt(fpsInput.value)
+  if (!isNaN(number))
+    caEditor.fps = number
 })
