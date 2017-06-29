@@ -62,6 +62,10 @@ const numbers = [
   {
     id: 'fpsInput',
     name: 'fps'
+  },
+  {
+    id: 'trajectorySizeInput',
+    name: 'trajectorySize'
   }]
 
 const multiSelects = [

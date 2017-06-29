@@ -4,6 +4,7 @@ import Cell from './Cell'
 
 export default class CAEditor {
   constructor () {
+    // default values
     this.maxSize = 600
     this.minSpacing = 10
     this._fps = 60
@@ -15,11 +16,12 @@ export default class CAEditor {
     this.defaultLineWidth = 1
     this._cellColorActive = 0x666666
     this._cellColorInactive = 0xFFFFFF
+    this._trajectorySize = 10
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.lineWidth = this.defaultLineWidth
     this.size = this.canvasSize - this.lineWidth
-    this._count = Math.min(Math.floor(this.size / this.minSpacing), 50)
+    this._count = Math.min(Math.floor(this.size / this.minSpacing), 60)
     this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
     this.cells = []
@@ -28,15 +30,13 @@ export default class CAEditor {
     this.maxDelta = 60 / this._fps
     this.delta = this.maxDelta
     this.previousPoint = new Point(-1, -1)
-
+    this.grid = null
     this.app = new Application({
       width: this.canvasSize,
       height: this.canvasSize,
       view: document.getElementById('main'),
       transparent: true
     })
-
-    this.grid = null
 
     this._init()
   }
@@ -93,6 +93,20 @@ export default class CAEditor {
     }
   }
 
+  get trajectorySize () {
+    return this._trajectorySize
+  }
+
+  set trajectorySize (value) {
+    if (this._trajectorySize !== value) {
+      this._trajectorySize = value
+
+      for (let x = 0; x < this.count; x++)
+        for (let y = 0; y < this.count; y++)
+          this.cells[x][y].trajectorySize = value
+    }
+  }
+
   get fps () {
     return this._fps
   }
@@ -142,7 +156,13 @@ export default class CAEditor {
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++) {
         if (!this.cells[x]) this.cells[x] = []
-        this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing, this.cellColorActive, this.cellColorInactive)
+        this.cells[x][y] = new Cell(
+          this.x + x * this.spacing,
+          this.y + y * this.spacing,
+          this.spacing,
+          this.cellColorActive,
+          this.cellColorInactive,
+          this.trajectorySize)
         if (savedCells && savedCells[x] && savedCells[x][y] && savedCells[x][y].active) this.cells[x][y].active = true
         this.cellContainer.addChild(this.cells[x][y])
       }
@@ -211,12 +231,18 @@ export default class CAEditor {
 
     newState.forEach((element, x) => {
       element.forEach((element, y) => {
-        if (element === 0)
+        if (element === 0) {
           this.cells[x][y].active = false
+          this.cells[x][y].trajectory = this.cells[x][y].trajectorySize
+        }
         else if (element === 1)
           this.cells[x][y].active = true
       })
     })
+
+    for (let x = 0; x < this.count; x++)
+      for (let y = 0; y < this.count; y++)
+        this.cells[x][y].nextStep()
   }
 
   randomizeCells () {
@@ -228,7 +254,7 @@ export default class CAEditor {
   clear () {
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++)
-        this.cells[x][y].active = false
+        this.cells[x][y].reset()
   }
 
   _onDragStart (evt) {
