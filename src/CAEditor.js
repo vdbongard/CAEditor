@@ -16,7 +16,7 @@ export default class CAEditor {
     this.defaultLineWidth = 1
     this._cellColorActive = 0x666666
     this._cellColorInactive = 0xFFFFFF
-    this._trajectorySize = 10
+    this._trajectorySize = 1
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.lineWidth = this.defaultLineWidth

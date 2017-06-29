@@ -69,38 +69,42 @@ export default class Cell extends Graphics {
 
   nextStep () {
     if (this.trajectory) {
-      const rgb = []
-      let tmp = 0
-      let hexString = ''
-
       this.trajectory--
 
       const step = Math.max(this.trajectorySize - this.trajectory, 0)
 
-      let hexStringActive = this.colorActive.toString(16)
-      let hexStringInactive = this.colorInactive.toString(16)
-
-      hexStringActive = ('000000' + hexStringActive).substring(hexStringActive.length)
-      hexStringInactive = ('000000' + hexStringInactive).substring(hexStringInactive.length)
-
-      for (let i = 0; i < 3; i++) {
-        const colorActive = parseInt('0x' + hexStringActive.slice(i * 2, i * 2 + 2))
-        const colorInactive = parseInt('0x' + hexStringInactive.slice(i * 2, i * 2 + 2))
-        const abs = Math.abs(colorActive - colorInactive)
-
-        if (colorActive > colorInactive)
-          rgb[i] = colorActive - Math.round(abs / this.trajectorySize * step)
-        else
-          rgb[i] = colorActive + Math.round(abs / this.trajectorySize * step)
-      }
-
-      for (let i = 0; i < 3; i++) {
-        tmp = rgb[i].toString(16)
-        hexString += ('00' + tmp).substring(tmp.length)
-      }
-
-      this.color = parseInt('0x' + hexString)
+      this.color = this._calcGradientColor(this.colorActive, this.colorInactive, this.trajectorySize, step)
     }
+  }
+
+  _calcGradientColor (color1, color2, steps, currentStep) {
+    const rgb = []
+    let tmp = 0
+    let hexString = ''
+
+    let hexStringColor1 = color1.toString(16)
+    let hexStringColor2 = color2.toString(16)
+
+    hexStringColor1 = ('000000' + hexStringColor1).substring(hexStringColor1.length)
+    hexStringColor2 = ('000000' + hexStringColor2).substring(hexStringColor2.length)
+
+    for (let i = 0; i < 3; i++) {
+      const colorActive = parseInt('0x' + hexStringColor1.slice(i * 2, i * 2 + 2))
+      const colorInactive = parseInt('0x' + hexStringColor2.slice(i * 2, i * 2 + 2))
+      const abs = Math.abs(colorActive - colorInactive)
+
+      if (colorActive > colorInactive)
+        rgb[i] = colorActive - Math.round(abs / steps * currentStep)
+      else
+        rgb[i] = colorActive + Math.round(abs / steps * currentStep)
+    }
+
+    for (let i = 0; i < 3; i++) {
+      tmp = rgb[i].toString(16)
+      hexString += ('00' + tmp).substring(tmp.length)
+    }
+
+    return parseInt('0x' + hexString)
   }
 
   reset () {
