@@ -5,16 +5,18 @@ import Cell from './Cell'
 export default class CAEditor {
   constructor () {
     this.maxSize = 600
-    this._lineWidth = 1
     this.minSpacing = 10
     this._fps = 60
     this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
     this.randomProbability = 20
+    this._showGrid = true
+    this.defaultLineWidth = 1
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
-    this.size = this.canvasSize - this._lineWidth
+    this.lineWidth = this.defaultLineWidth
+    this.size = this.canvasSize - this.lineWidth
     this._count = Math.min(Math.floor(this.size / this.minSpacing), 50)
     this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
@@ -49,13 +51,14 @@ export default class CAEditor {
     }
   }
 
-  get lineWidth () {
-    return this._lineWidth
+  get showGrid () {
+    return this._showGrid
   }
 
-  set lineWidth (value) {
-    if (this._lineWidth !== value) {
-      this._lineWidth = value
+  set showGrid (value) {
+    if (this._showGrid !== value) {
+      this._showGrid = value
+      this.lineWidth = value ? this.defaultLineWidth : 0
       this._redraw()
     }
   }
@@ -89,6 +92,8 @@ export default class CAEditor {
   }
 
   _redraw () {
+    const savedCells = this.cells
+
     // reset
     this.cellContainer.removeChildren()
     this.cells = []
@@ -108,6 +113,7 @@ export default class CAEditor {
       for (let y = 0; y < this.count; y++) {
         if (!this.cells[x]) this.cells[x] = []
         this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing)
+        if (savedCells && savedCells[x] && savedCells[x][y] && savedCells[x][y].active) this.cells[x][y].active = true
         this.cellContainer.addChild(this.cells[x][y])
       }
   }

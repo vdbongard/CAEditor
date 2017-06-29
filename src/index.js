@@ -44,16 +44,16 @@ const toggles = [
   {
     id: 'overlappingEdgeSwitch',
     name: 'overlappingEdge'
+  },
+  {
+    id: 'gridSwitch',
+    name: 'showGrid'
   }]
 
 const numbers = [
   {
     id: 'cellCountInput',
     name: 'count'
-  },
-  {
-    id: 'lineWidthInput',
-    name: 'lineWidth'
   },
   {
     id: 'randomProbabilityInput',
