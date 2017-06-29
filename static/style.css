@@ -29,6 +29,15 @@ body {
     margin: 0.5rem;
 }
 
+.settings input[type=color] {
+    background: none;
+    border: none;
+    outline: none;
+    margin: 0 16px;
+    padding: 0;
+    width: 36px;
+}
+
 .settings .input-field {
     margin-top: 0;
 }

@@ -74,6 +74,17 @@ const multiSelects = [
     name: 'born'
   }]
 
+const colors = [
+  {
+    id: 'cellColorActiveInput',
+    name: 'cellColorActive'
+  },
+  {
+    id: 'cellColorInactiveInput',
+    name: 'cellColorInactive'
+  }
+]
+
 buttons.forEach((button) => {
   const domElement = document.getElementById(button.id)
   domElement.addEventListener('click', () => button.function(domElement))
@@ -112,4 +123,13 @@ multiSelects.forEach((multiSelect) => {
 
     caEditor[multiSelect.name] = options
   }
+})
+
+colors.forEach((color) => {
+  const domElement = document.getElementById(color.id)
+  domElement.value = '#' + caEditor[color.name].toString(16)
+
+  domElement.addEventListener('change', () => {
+    caEditor[color.name] = parseInt('0x' + domElement.value.slice(1))
+  })
 })

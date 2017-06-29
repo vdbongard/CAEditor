@@ -1,25 +1,43 @@
 import { Graphics } from 'pixi.js'
 
 export default class Cell extends Graphics {
-  constructor (x, y, w) {
+  constructor (x, y, w, colorActive, colorInactive) {
     super()
 
     this.x = x
     this.y = y
     this.w = w
 
-    this._color = Cell.inactiveCellColor
+    this._colorActive = colorActive
+    this._colorInactive = colorInactive
+    this._color = colorInactive
     this._active = false
 
     this._draw()
   }
 
-  static get inactiveCellColor () {
-    return 0xFFFFFF
+  get colorActive () {
+    return this._colorActive
   }
 
-  static get activeCellColor () {
-    return 0x666666
+  set colorActive (value) {
+    if (this._colorActive !== value) {
+      this._colorActive = value
+      if (this.active)
+        this.color = value
+    }
+  }
+
+  get colorInactive () {
+    return this._colorInactive
+  }
+
+  set colorInactive (value) {
+    if (this._colorInactive !== value) {
+      this._colorInactive = value
+      if (!this.active)
+        this.color = value
+    }
   }
 
   get active () {
@@ -31,8 +49,8 @@ export default class Cell extends Graphics {
       this._active = value
 
       this.color = this.active
-        ? Cell.activeCellColor
-        : Cell.inactiveCellColor
+        ? this.colorActive
+        : this.colorInactive
     }
   }
 

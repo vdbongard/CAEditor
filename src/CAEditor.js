@@ -13,6 +13,8 @@ export default class CAEditor {
     this.randomProbability = 20
     this._showGrid = true
     this.defaultLineWidth = 1
+    this._cellColorActive = 0x666666
+    this._cellColorInactive = 0xFFFFFF
 
     this.canvasSize = Math.min(window.innerWidth, this.maxSize)
     this.lineWidth = this.defaultLineWidth
@@ -60,6 +62,34 @@ export default class CAEditor {
       this._showGrid = value
       this.lineWidth = value ? this.defaultLineWidth : 0
       this._redraw()
+    }
+  }
+
+  get cellColorActive () {
+    return this._cellColorActive
+  }
+
+  set cellColorActive (value) {
+    if (this._cellColorActive !== value) {
+      this._cellColorActive = value
+
+      for (let x = 0; x < this.count; x++)
+        for (let y = 0; y < this.count; y++)
+          this.cells[x][y].colorActive = value
+    }
+  }
+
+  get cellColorInactive () {
+    return this._cellColorInactive
+  }
+
+  set cellColorInactive (value) {
+    if (this._cellColorInactive !== value) {
+      this._cellColorInactive = value
+
+      for (let x = 0; x < this.count; x++)
+        for (let y = 0; y < this.count; y++)
+          this.cells[x][y].colorInactive = value
     }
   }
 
@@ -112,7 +142,7 @@ export default class CAEditor {
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++) {
         if (!this.cells[x]) this.cells[x] = []
-        this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing)
+        this.cells[x][y] = new Cell(this.x + x * this.spacing, this.y + y * this.spacing, this.spacing, this.cellColorActive, this.cellColorInactive)
         if (savedCells && savedCells[x] && savedCells[x][y] && savedCells[x][y].active) this.cells[x][y].active = true
         this.cellContainer.addChild(this.cells[x][y])
       }
