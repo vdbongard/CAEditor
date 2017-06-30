@@ -1,10 +1,5 @@
 import CAEditor from './CAEditor'
 
-$(document).ready(() => { // eslint-disable-line no-undef
-  $('.button-collapse').sideNav() // eslint-disable-line no-undef
-  $('select').material_select() // eslint-disable-line no-undef
-})
-
 const caEditor = new CAEditor()
 
 const buttons = [

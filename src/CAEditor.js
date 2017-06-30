@@ -4,24 +4,30 @@ import Cell from './Cell'
 
 export default class CAEditor {
   constructor () {
-    // default values
-    this.maxSize = 600
-    this.minSpacing = 10
-    this._fps = 60
+    // UI default values
+    this._maxSize = 600
+    this._minSpacing = 10
+    this._showGrid = true
+    this._defaultLineWidth = 1
+    this._cellColorActive = 0x555555
+    this._cellColorInactive = 0xFFFFFF
+    this._trajectorySize = 1
+    this._defaultCellCount = 30
+
+    // Rules default value
     this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
     this.randomProbability = 20
-    this._showGrid = true
-    this.defaultLineWidth = 1
-    this._cellColorActive = 0x666666
-    this._cellColorInactive = 0xFFFFFF
-    this._trajectorySize = 1
 
-    this.canvasSize = Math.min(window.innerWidth, this.maxSize)
-    this.lineWidth = this.defaultLineWidth
+    // Other default values
+    this._fps = 20
+
+    // attributes
+    this.canvasSize = Math.min(window.innerWidth, this._maxSize)
+    this.lineWidth = this._defaultLineWidth
     this.size = this.canvasSize - this.lineWidth
-    this._count = Math.min(Math.floor(this.size / this.minSpacing), 60)
+    this._count = Math.min(Math.floor(this.size / this._minSpacing), this._defaultCellCount)
     this.spacing = this.size / this._count
     this.x = this.y = (this.canvasSize - this.size) / 2
     this.cells = []
@@ -60,7 +66,7 @@ export default class CAEditor {
   set showGrid (value) {
     if (this._showGrid !== value) {
       this._showGrid = value
-      this.lineWidth = value ? this.defaultLineWidth : 0
+      this.lineWidth = value ? this._defaultLineWidth : 0
       this._redraw()
     }
   }
