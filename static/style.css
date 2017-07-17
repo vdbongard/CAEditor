@@ -29,7 +29,7 @@ body {
     margin: 0.5rem;
 }
 
-.settings input[type=color] {
+.setting input[type=color] {
     background: none;
     border: none;
     outline: none;
@@ -38,11 +38,11 @@ body {
     width: 36px;
 }
 
-.settings .input-field {
+.setting .input-field {
     margin-top: 0;
 }
 
-.settings input[type=number], .select-wrapper input.select-dropdown {
+.setting input[type=number], .select-wrapper input.select-dropdown {
     height: 2rem;
     margin: 0;
 }
@@ -65,11 +65,11 @@ input[type=checkbox]:checked:not(:disabled) ~ .lever:active::before, input[type=
     background-color: rgba(158, 209, 250, 0.15);
 }
 
-.settings .dropdown-content li>a, .dropdown-content li>span {
+.setting .dropdown-content li>a, .dropdown-content li>span {
     color: #2196F3
 }
 
-.settings input[type="checkbox"]:checked+label:before {
+.setting input[type="checkbox"]:checked+label:before {
     border-right-color: #2196F3;
     border-bottom-color: #2196F3;
 }
@@ -82,6 +82,12 @@ input[type=checkbox]:checked:not(:disabled) ~ .lever:active::before, input[type=
 
 .setting span {
     flex: 1
+}
+
+.collapsible-body {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: white;
 }
 
 .mb-1 {

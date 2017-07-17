@@ -44,37 +44,17 @@
         <a id="clearButton" class="waves-effect waves-light btn blue"><i class="material-icons">delete</i></a>
     </div>
 
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">Settings</span>
-            <div class="settings">
-                <div class="setting">
-                    <span>Cell color active</span>
-                    <div class="">
-                        <input id="cellColorActiveInput" type="color">
-                    </div>
-                </div>
-                <div class="setting">
-                    <span>Cell color inactive</span>
-                    <div class="">
-                        <input id="cellColorInactiveInput" type="color">
-                    </div>
-                </div>
+    <h4>Settings</h4>
+
+    <ul class="collapsible" data-collapsible="expandable">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">receipt</i>Rules</div>
+            <div class="collapsible-body">
                 <div class="setting">
                     <span>Overlapping edge</span>
                     <div class="switch">
                         <label><input id="overlappingEdgeSwitch" type="checkbox"><span class="lever"></span></label>
                     </div>
-                </div>
-                <div class="setting">
-                    <span>Show grid</span>
-                    <div class="switch">
-                        <label><input id="gridSwitch" type="checkbox"><span class="lever"></span></label>
-                    </div>
-                </div>
-                <div class="setting">
-                    <span>Cell count</span>
-                    <div class="input-field"><input id="cellCountInput" type="number" title="Cell count"></div>
                 </div>
                 <div class="setting">
                     <span>Survives</span>
@@ -110,6 +90,38 @@
                         </select>
                     </div>
                 </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">invert_colors</i>UI</div>
+            <div class="collapsible-body">
+                <div class="setting">
+                    <span>Cell count</span>
+                    <div class="input-field"><input id="cellCountInput" type="number" title="Cell count"></div>
+                </div>
+                <div class="setting">
+                    <span>Cell color active</span>
+                    <div class="">
+                        <input id="cellColorActiveInput" type="color">
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Cell color inactive</span>
+                    <div class="">
+                        <input id="cellColorInactiveInput" type="color">
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Show grid</span>
+                    <div class="switch">
+                        <label><input id="gridSwitch" type="checkbox"><span class="lever"></span></label>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">insert_chart</i>Other</div>
+            <div class="collapsible-body">
                 <div class="setting">
                     <span>Random probability (%)</span>
                     <div class="input-field"><input id="randomProbabilityInput" type="number" title="Random probability"></div>
@@ -123,8 +135,8 @@
                     <div class="input-field"><input id="trajectorySizeInput" type="number" title="Trajectory Size"></div>
                 </div>
             </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
