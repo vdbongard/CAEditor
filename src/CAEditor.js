@@ -5,7 +5,7 @@ import Cell from './Cell'
 export default class CAEditor {
   constructor () {
     // UI default values
-    this._maxSize = 600
+    this._maxSize = Math.min(600, window.innerHeight - 64 * 2 - 32)
     this._minSpacing = 10
     this._showGrid = true
     this._defaultLineWidth = 1
