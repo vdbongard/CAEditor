@@ -5,7 +5,6 @@ import Cell from './Cell'
 export default class CAEditor {
   constructor () {
     // UI default values
-    this._maxSize = Math.min(600, window.innerHeight - 64 * 2 - 32)
     this._minSpacing = 10
     this._showGrid = true
     this._defaultLineWidth = 1
@@ -14,7 +13,7 @@ export default class CAEditor {
     this._trajectorySize = 1
     this._defaultCellCount = 30
 
-    // Rules default value
+    // Rules default values
     this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
@@ -24,7 +23,7 @@ export default class CAEditor {
     this._fps = 20
 
     // attributes
-    this.canvasSize = Math.min(window.innerWidth, this._maxSize)
+    this.canvasSize = Math.min(window.innerWidth - 2 * 16, window.innerHeight - 64 - 2 * 16)
     this.lineWidth = this._defaultLineWidth
     this.size = this.canvasSize - this.lineWidth
     this._count = Math.min(Math.floor(this.size / this._minSpacing), this._defaultCellCount)

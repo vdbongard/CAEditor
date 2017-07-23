@@ -2,12 +2,19 @@ body {
     background-color: #EEEEEE;
 }
 
+.content {
+    display: flex;
+    height: calc( 100% - 56px );
+}
+
+@media only screen and (min-width: 601px) {
+    .content {
+        height: calc( 100% - 64px );
+    }
+}
+
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 64px;
-    min-width: 26rem;
+    flex-basis: 26rem;
     height: 100%;
     overflow-y: auto;
 }
@@ -15,36 +22,58 @@ body {
 .sidebar .collapsible {
     margin: 0;
     min-height: 100%;
-    background-color: white;
     border: none;
+}
+
+.sidebar .collapsible-header {
+    background-color: #f8f8f8;
 }
 
 .sidebar .collapsible-header:hover {
     background-color: #e3f2fd;
 }
 
-.main {
-    padding-left: 30rem;
+
+.sidebar .collapsible-body {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+}
+
+.sidebar .collapsible-body, .sidebar .collapsible {
+    background-color: white;
 }
 
 .canvas {
-    margin: 1rem 0;
+    flex: 1;
+    padding: 1rem;
     display: flex;
     justify-content: center;
-}
-
-.canvas #main {
-    margin: 0;
+    overflow: auto
 }
 
 .buttonRow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 26rem;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.buttonRow .btn {
-    margin: 0 0.5rem;
+.buttonRow .btn-flat {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    border-top: 1px solid #ddd;
+    background-color: white;
+}
+
+.buttonRow .btn-flat + .btn-flat {
+    border-left: 1px solid #ddd;
 }
 
 .setting input[type=color] {
@@ -65,6 +94,23 @@ body {
     height: 2rem;
     margin: 0;
 }
+
+.setting {
+    display: flex;
+    align-items: center;
+    height: 45px;
+}
+
+.setting span {
+    flex: 1
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+
+/* Materialize Color */
 
 .switch label input[type=checkbox]:checked + .lever:after {
     background-color: #2196F3;
@@ -93,26 +139,6 @@ input[type=checkbox]:checked:not(:disabled) ~ .lever:active::before, input[type=
     border-bottom-color: #2196F3;
 }
 
-.setting {
-    display: flex;
-    align-items: center;
-    height: 45px;
-}
-
-.setting span {
-    flex: 1
-}
-
-.collapsible-body {
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: white;
-}
-
-.mb-1 {
-    margin-bottom: 1rem;
-}
-
-.ta-c {
-    text-align: center;
+.waves-effect.waves-blue .waves-ripple {
+    background-color: rgba(33, 150, 243, 0.65);
 }
