@@ -5,28 +5,28 @@ import Cell from './Cell'
 export default class CAEditor {
   constructor () {
     // UI default values
-    this._minSpacing = 10
-    this._showGrid = true
-    this._defaultLineWidth = 1
     this._cellColorActive = 0x555555
     this._cellColorInactive = 0xFFFFFF
-    this._trajectorySize = 1
+    this._showGrid = true
+    this._minSpacing = 10
+    this._defaultLineWidth = 1
     this._defaultCellCount = 30
 
     // Rules default values
-    this.overlappingEdge = true
     this.survives = [2, 3]
     this.born = [3]
-    this.randomProbability = 20
+    this.overlappingEdge = true
 
     // Other default values
+    this.randomProbability = 20
     this._fps = 20
+    this._trajectorySize = 1
 
     // attributes
     this._domWrapper = document.getElementsByClassName('canvas')[0]
-    this._domNavHeight = document.getElementsByClassName('navbar-fixed')[0].clientHeight
     this._domPadding = parseFloat(window.getComputedStyle(this._domWrapper, null).getPropertyValue('padding'))
-    this.canvasSize = Math.min(this._domWrapper.clientWidth - 2 * this._domPadding, this._domWrapper.clientHeight - 2 * this._domPadding)
+    this._domButtonRow = document.querySelector('.content > .buttonRow')
+    this.canvasSize = this._calcCanvasSize()
     this.lineWidth = this._defaultLineWidth
     this.size = this.canvasSize - this.lineWidth
     this._count = Math.min(Math.floor(this.size / this._minSpacing), this._defaultCellCount)
@@ -140,6 +140,15 @@ export default class CAEditor {
     this.app.stage
       .on('pointerdown', (evt) => this._onDragStart(evt))
 
+    window.addEventListener('resize', () => {
+      const newCanvasSize = this._calcCanvasSize()
+      if (this.canvasSize !== newCanvasSize) {
+        this.canvasSize = newCanvasSize
+        this.app.renderer.resize(this.canvasSize, this.canvasSize)
+        this._redraw()
+      }
+    })
+
     this._redraw()
   }
 
@@ -174,6 +183,13 @@ export default class CAEditor {
         if (savedCells && savedCells[x] && savedCells[x][y] && savedCells[x][y].active) this.cells[x][y].active = true
         this.cellContainer.addChild(this.cells[x][y])
       }
+  }
+
+  _calcCanvasSize () {
+    return Math.min(
+      this._domWrapper.clientWidth - 2 * this._domPadding,
+      this._domWrapper.clientHeight - 2 * this._domPadding -
+      (window.innerWidth <= 992 ? this._domButtonRow.clientHeight : 0))
   }
 
   play () {
