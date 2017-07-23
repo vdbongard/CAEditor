@@ -144,3 +144,152 @@ colors.forEach((color) => {
     })
   })
 })
+
+const presets = [
+  {
+    'name': 'Default',
+    'cellColorInactive': 0xFFFFFF,
+    'cellColorActive': 0x555555,
+    'showGrid': true,
+    'trajectorySize': 1,
+    'survives': [2, 3],
+    'born': [3],
+    'count': 30
+  },
+  {
+    'name': 'Glider',
+    'cells': [
+      [0, 2],
+      [1, 0],
+      [1, 2],
+      [2, 1],
+      [2, 2]
+    ]
+  },
+  {
+    'name': 'Lightweight spaceship',
+    'cells': [
+      [0, 0],
+      [0, 2],
+      [1, 3],
+      [2, 3],
+      [3, 0],
+      [3, 3],
+      [4, 1],
+      [4, 2],
+      [4, 3]
+    ]
+  },
+  {
+    'name': 'Tumbler',
+    'cellColorInactive': 0xff6e42,
+    'cellColorActive': 0x8bc34a,
+    'showGrid': false,
+    'trajectorySize': 5,
+    'cells': [
+      [0, 1],
+      [1, 0],
+      [1, 3],
+      [2, 1],
+      [2, 2],
+      [2, 3],
+      [2, 4],
+      [3, 2],
+      [3, 4],
+      [5, 2],
+      [5, 4],
+      [6, 1],
+      [6, 2],
+      [6, 3],
+      [6, 4],
+      [7, 0],
+      [7, 3],
+      [8, 1]
+    ]
+  },
+  {
+    'name': 'Octagon',
+    'cells': [
+      [0, 3],
+      [0, 4],
+      [1, 2],
+      [1, 5],
+      [2, 1],
+      [2, 6],
+      [3, 0],
+      [3, 7],
+      [4, 0],
+      [4, 7],
+      [5, 1],
+      [5, 6],
+      [6, 2],
+      [6, 5],
+      [7, 3],
+      [7, 4]
+    ]
+  },
+  {
+    'name': 'Chain',
+    'cells': [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [0, 4],
+      [0, 5],
+      [0, 6],
+      [1, 0],
+      [1, 6],
+      [2, 0],
+      [2, 1],
+      [2, 2],
+      [2, 4],
+      [2, 5],
+      [2, 6]
+    ]
+  },
+  {
+    'name': 'R-pentomino',
+    'cells': [
+      [0, 1],
+      [1, 0],
+      [1, 1],
+      [1, 2],
+      [2, 0]
+    ]
+  },
+  {
+    'name': 'Labyrinth-system',
+    'survives': [1, 2, 3, 4, 5],
+    'born': [3]
+  },
+  {
+    'name': 'Copy-system',
+    'survives': [1, 3, 5, 7],
+    'born': [1, 3, 5, 7],
+    'showGrid': false,
+    'count': 200,
+    'cells': [
+      [0, 0],
+      [0, 1],
+      [1, 0],
+      [1, 2],
+      [2, 1],
+      [2, 2]
+    ]
+  }
+]
+
+const domPresets = Array.from(document.getElementsByClassName('presets'))
+
+domPresets.forEach(el => {
+  presets.forEach((obj) => {
+    const div = document.createElement('div')
+    div.classList.add('preset', 'waves-effect', 'waves-blue')
+    div.append(obj.name)
+    div.addEventListener('click', () => {
+      caEditor.setPreset(obj)
+    })
+
+    el.appendChild(div)
+  })
+})

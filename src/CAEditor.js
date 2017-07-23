@@ -54,7 +54,7 @@ export default class CAEditor {
   }
 
   set count (value) {
-    if (this._count !== value) {
+    if (typeof value === 'number' && value >= 1 && this._count !== value) {
       this._count = value
       this.spacing = this.size / this._count
       this._redraw()
@@ -66,7 +66,7 @@ export default class CAEditor {
   }
 
   set showGrid (value) {
-    if (this._showGrid !== value) {
+    if (typeof value === 'boolean' && this._showGrid !== value) {
       this._showGrid = value
       this.lineWidth = value ? this._defaultLineWidth : 0
       this._redraw()
@@ -78,7 +78,7 @@ export default class CAEditor {
   }
 
   set cellColorActive (value) {
-    if (this._cellColorActive !== value) {
+    if (typeof value === 'number' && this._cellColorActive !== value) {
       this._cellColorActive = value
 
       for (let x = 0; x < this.count; x++)
@@ -92,7 +92,7 @@ export default class CAEditor {
   }
 
   set cellColorInactive (value) {
-    if (this._cellColorInactive !== value) {
+    if (typeof value === 'number' && this._cellColorInactive !== value) {
       this._cellColorInactive = value
 
       for (let x = 0; x < this.count; x++)
@@ -106,7 +106,7 @@ export default class CAEditor {
   }
 
   set trajectorySize (value) {
-    if (this._trajectorySize !== value) {
+    if (typeof value === 'number' && value >= 0 && this._trajectorySize !== value) {
       this._trajectorySize = value
 
       for (let x = 0; x < this.count; x++)
@@ -120,7 +120,7 @@ export default class CAEditor {
   }
 
   set fps (value) {
-    if (this._fps !== value) {
+    if (typeof value === 'number' && value >= 0 && this._fps !== value) {
       this._fps = value
       this.maxDelta = 60 / this._fps
     }
@@ -270,6 +270,7 @@ export default class CAEditor {
   }
 
   randomizeCells () {
+    this.clear()
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++)
         this.cells[x][y].active = Math.random() > (1 - this.randomProbability / 100)
@@ -279,6 +280,40 @@ export default class CAEditor {
     for (let x = 0; x < this.count; x++)
       for (let y = 0; y < this.count; y++)
         this.cells[x][y].reset()
+  }
+
+  setPreset (preset) {
+        this.cellColorActive = preset.cellColorActive
+    this.cellColorInactive = preset.cellColorInactive
+    this.showGrid = preset.showGrid
+    this.trajectorySize = preset.trajectorySize
+    this.count = preset.count
+
+    if (preset.survives)
+      this.survives = preset.survives
+
+    if (preset.born)
+      this.born = preset.born
+
+    if (preset.cells) {
+      this.clear()
+
+      let sizeX = 0
+      let sizeY = 0
+
+      preset.cells.forEach(cell => {
+        if (cell[0] > sizeX) sizeX = cell[0]
+        if (cell[1] > sizeY) sizeY = cell[1]
+      })
+
+      const offsetX = Math.max(Math.floor((this.count - sizeX - 1) / 2), 0)
+      const offsetY = Math.max(Math.floor((this.count - sizeY - 1) / 2), 0)
+
+      preset.cells.forEach(cell => {
+        if (this.cells[cell[0] + offsetX] && this.cells[cell[0] + offsetX][cell[1] + offsetY])
+          this.cells[cell[0] + offsetX][cell[1] + offsetY].active = true
+      })
+    }
   }
 
   _onDragStart (evt) {
