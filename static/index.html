@@ -20,17 +20,128 @@
             <div class="col s12">
                 <a href="#" class="brand-logo center">CA Editor</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">About</a></li>
-                </ul>
             </div>
         </div>
     </nav>
 </div>
 
-<ul class="side-nav" id="mobile-demo">
-    <li><a href="#">About</a></li>
-</ul>
+<div id="mobile-demo" class="side-nav">
+    <ul class="collapsible" data-collapsible="expandable">
+        <li>
+            <div class="collapsible-header active"><i class="material-icons">receipt</i>Rules</div>
+            <div class="collapsible-body">
+                <div class="setting">
+                    <span>Dimension</span>
+                    <div class="input-field">
+                        <select title="Dimension" class="dimensionSelect">
+                            <option value="0">2D</option>
+                            <option value="1" selected>3D</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Survives</span>
+                    <div class="input-field">
+                        <select multiple title="Survives" class="survivesSelect">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Born</span>
+                    <div class="input-field">
+                        <select multiple title="Born" class="bornSelect">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Overlapping edge</span>
+                    <div class="switch">
+                        <label><input class="overlappingEdgeSwitch" type="checkbox"><span class="lever"></span></label>
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Neighborhood</span>
+                    <select title="Neighborhood" class="neighborhoodSelect">
+                        <option value="0">3x3 (von Neumann)</option>
+                        <option value="1" selected>3x3 (Moore)</option>
+                        <option value="2">5x5</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header active"><i class="material-icons">invert_colors</i>UI</div>
+            <div class="collapsible-body">
+                <div class="setting">
+                    <span>Cell count</span>
+                    <div class="input-field"><input class="cellCountInput" type="number" title="Cell count"></div>
+                </div>
+                <div class="setting">
+                    <span>Cell color active</span>
+                    <div class="">
+                        <input class="cellColorActiveInput" type="color">
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Cell color inactive</span>
+                    <div class="">
+                        <input class="cellColorInactiveInput" type="color">
+                    </div>
+                </div>
+                <div class="setting">
+                    <span>Show grid</span>
+                    <div class="switch">
+                        <label><input class="gridSwitch" type="checkbox"><span class="lever"></span></label>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header active"><i class="material-icons">insert_chart</i>Other</div>
+            <div class="collapsible-body">
+                <div class="setting">
+                    <span>Random probability (%)</span>
+                    <div class="input-field"><input class="randomProbabilityInput" type="number"
+                                                    title="Random probability"></div>
+                </div>
+                <div class="setting">
+                    <span>FPS</span>
+                    <div class="input-field"><input class="fpsInput" type="number" title="FPS"></div>
+                </div>
+                <div class="setting">
+                    <span>Trajectory size</span>
+                    <div class="input-field"><input class="trajectorySizeInput" type="number" title="Trajectory Size">
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">grade</i>Presets</div>
+            <div class="collapsible-body">
+            </div>
+        </li>
+    </ul>
+</div>
 
 <div class="content">
     <div class="sidebar z-depth-1 hide-on-med-and-down">
@@ -42,7 +153,7 @@
                     <div class="setting">
                         <span>Dimension</span>
                         <div class="input-field">
-                            <select title="Dimension" id="dimensionSelect">
+                            <select title="Dimension" class="dimensionSelect">
                                 <option value="0">2D</option>
                                 <option value="1" selected>3D</option>
                             </select>
@@ -51,7 +162,7 @@
                     <div class="setting">
                         <span>Survives</span>
                         <div class="input-field">
-                            <select multiple title="Survives" id="survivesSelect">
+                            <select multiple title="Survives" class="survivesSelect">
                                 <option value="" disabled selected>Choose your option</option>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
@@ -68,7 +179,7 @@
                     <div class="setting">
                         <span>Born</span>
                         <div class="input-field">
-                            <select multiple title="Born" id="bornSelect">
+                            <select multiple title="Born" class="bornSelect">
                                 <option value="" disabled selected>Choose your option</option>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
@@ -85,12 +196,12 @@
                     <div class="setting">
                         <span>Overlapping edge</span>
                         <div class="switch">
-                            <label><input id="overlappingEdgeSwitch" type="checkbox"><span class="lever"></span></label>
+                            <label><input class="overlappingEdgeSwitch" type="checkbox"><span class="lever"></span></label>
                         </div>
                     </div>
                     <div class="setting">
                         <span>Neighborhood</span>
-                        <select title="Neighborhood" id="neighborhoodSelect">
+                        <select title="Neighborhood" class="neighborhoodSelect">
                             <option value="0">3x3 (von Neumann)</option>
                             <option value="1" selected>3x3 (Moore)</option>
                             <option value="2">5x5</option>
@@ -103,24 +214,24 @@
                 <div class="collapsible-body">
                     <div class="setting">
                         <span>Cell count</span>
-                        <div class="input-field"><input id="cellCountInput" type="number" title="Cell count"></div>
+                        <div class="input-field"><input class="cellCountInput" type="number" title="Cell count"></div>
                     </div>
                     <div class="setting">
                         <span>Cell color active</span>
                         <div class="">
-                            <input id="cellColorActiveInput" type="color">
+                            <input class="cellColorActiveInput" type="color">
                         </div>
                     </div>
                     <div class="setting">
                         <span>Cell color inactive</span>
                         <div class="">
-                            <input id="cellColorInactiveInput" type="color">
+                            <input class="cellColorInactiveInput" type="color">
                         </div>
                     </div>
                     <div class="setting">
                         <span>Show grid</span>
                         <div class="switch">
-                            <label><input id="gridSwitch" type="checkbox"><span class="lever"></span></label>
+                            <label><input class="gridSwitch" type="checkbox"><span class="lever"></span></label>
                         </div>
                     </div>
                 </div>
@@ -130,16 +241,16 @@
                 <div class="collapsible-body">
                     <div class="setting">
                         <span>Random probability (%)</span>
-                        <div class="input-field"><input id="randomProbabilityInput" type="number"
+                        <div class="input-field"><input class="randomProbabilityInput" type="number"
                                                         title="Random probability"></div>
                     </div>
                     <div class="setting">
                         <span>FPS</span>
-                        <div class="input-field"><input id="fpsInput" type="number" title="FPS"></div>
+                        <div class="input-field"><input class="fpsInput" type="number" title="FPS"></div>
                     </div>
                     <div class="setting">
                         <span>Trajectory size</span>
-                        <div class="input-field"><input id="trajectorySizeInput" type="number" title="Trajectory Size">
+                        <div class="input-field"><input class="trajectorySizeInput" type="number" title="Trajectory Size">
                         </div>
                     </div>
                 </div>
@@ -152,16 +263,23 @@
         </ul>
 
         <div class="buttonRow">
-            <a id="playButton" class="waves-effect waves-blue btn-flat"><i class="material-icons">play_arrow</i></a>
-            <a id="nextStepButton" class="waves-effect waves-blue btn-flat"><i class="material-icons">skip_next</i></a>
-            <a id="randomizeButton" class="waves-effect waves-blue btn-flat"><i class="material-icons">shuffle</i></a>
-            <a id="clearButton" class="waves-effect waves-blue btn-flat"><i class="material-icons">delete</i></a>
+            <a class="playButton waves-effect waves-blue btn-flat"><i class="material-icons">play_arrow</i></a>
+            <a class="nextStepButton waves-effect waves-blue btn-flat"><i class="material-icons">skip_next</i></a>
+            <a class="randomizeButton waves-effect waves-blue btn-flat"><i class="material-icons">shuffle</i></a>
+            <a class="clearButton waves-effect waves-blue btn-flat"><i class="material-icons">delete</i></a>
         </div>
 
     </div>
 
     <div class="canvas">
         <canvas id="main" style="user-select: none"></canvas>
+    </div>
+
+    <div class="buttonRow hide-on-large-only">
+        <a class="playButton waves-effect waves-blue btn-flat"><i class="material-icons">play_arrow</i></a>
+        <a class="nextStepButton waves-effect waves-blue btn-flat"><i class="material-icons">skip_next</i></a>
+        <a class="randomizeButton waves-effect waves-blue btn-flat"><i class="material-icons">shuffle</i></a>
+        <a class="clearButton waves-effect waves-blue btn-flat"><i class="material-icons">delete</i></a>
     </div>
 </div>
 

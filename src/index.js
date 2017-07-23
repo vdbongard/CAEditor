@@ -85,50 +85,62 @@ const colors = [
 ]
 
 buttons.forEach((button) => {
-  const domElement = document.getElementById(button.id)
-  domElement.addEventListener('click', () => button.function(domElement))
+  const domElements = Array.from(document.getElementsByClassName(button.id))
+
+  domElements.forEach(el => el.addEventListener('click', () => button.function(el)))
 })
 
 toggles.forEach((toggle) => {
-  const domElement = document.getElementById(toggle.id)
-  domElement.checked = caEditor[toggle.name]
-  domElement.addEventListener('change', () => {
-    caEditor[toggle.name] = !!domElement.checked
+  const domElements = Array.from(document.getElementsByClassName(toggle.id))
+
+  domElements.forEach(el => {
+    el.checked = caEditor[toggle.name]
+    el.addEventListener('change', () => {
+      caEditor[toggle.name] = !!el.checked
+    })
   })
 })
 
 numbers.forEach((number) => {
-  const domElement = document.getElementById(number.id)
-  domElement.value = caEditor[number.name]
-  domElement.addEventListener('input', () => {
-    const value = parseInt(domElement.value)
-    if (!isNaN(value))
-      caEditor[number.name] = value
+  const domElements = Array.from(document.getElementsByClassName(number.id))
+
+  domElements.forEach(el => {
+    el.value = caEditor[number.name]
+    el.addEventListener('input', () => {
+      const value = parseInt(el.value)
+      if (!isNaN(value))
+        caEditor[number.name] = value
+    })
   })
 })
 
 multiSelects.forEach((multiSelect) => {
-  const domElement = document.getElementById(multiSelect.id)
+  const domElements = Array.from(document.getElementsByClassName(multiSelect.id))
 
-  caEditor[multiSelect.name].forEach((number) => {
-    domElement.options[number + 1].selected = true
+  domElements.forEach(el => {
+    caEditor[multiSelect.name].forEach((number) => {
+      el.options[number + 1].selected = true
+    })
+
+    el.onchange = () => {
+      const options = []
+
+      for (let i = 1; i < el.options.length; i++)
+        if (el.options[i].selected) options.push(parseInt(el.options[i].value))
+
+      caEditor[multiSelect.name] = options
+    }
   })
-
-  domElement.onchange = () => {
-    const options = []
-
-    for (let i = 1; i < domElement.options.length; i++)
-      if (domElement.options[i].selected) options.push(parseInt(domElement.options[i].value))
-
-    caEditor[multiSelect.name] = options
-  }
 })
 
 colors.forEach((color) => {
-  const domElement = document.getElementById(color.id)
-  domElement.value = '#' + caEditor[color.name].toString(16)
+  const domElements = Array.from(document.getElementsByClassName(color.id))
 
-  domElement.addEventListener('change', () => {
-    caEditor[color.name] = parseInt('0x' + domElement.value.slice(1))
+  domElements.forEach(el => {
+    el.value = '#' + caEditor[color.name].toString(16)
+
+    el.addEventListener('change', () => {
+      caEditor[color.name] = parseInt('0x' + el.value.slice(1))
+    })
   })
 })

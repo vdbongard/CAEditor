@@ -23,7 +23,10 @@ export default class CAEditor {
     this._fps = 20
 
     // attributes
-    this.canvasSize = Math.min(window.innerWidth - 2 * 16, window.innerHeight - 64 - 2 * 16)
+    this._domWrapper = document.getElementsByClassName('canvas')[0]
+    this._domNavHeight = document.getElementsByClassName('navbar-fixed')[0].clientHeight
+    this._domPadding = parseFloat(window.getComputedStyle(this._domWrapper, null).getPropertyValue('padding'))
+    this.canvasSize = Math.min(this._domWrapper.clientWidth - 2 * this._domPadding, this._domWrapper.clientHeight - 2 * this._domPadding - this._domNavHeight)
     this.lineWidth = this._defaultLineWidth
     this.size = this.canvasSize - this.lineWidth
     this._count = Math.min(Math.floor(this.size / this._minSpacing), this._defaultCellCount)
