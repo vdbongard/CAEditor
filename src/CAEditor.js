@@ -24,7 +24,7 @@ export default class CAEditor {
 
     // attributes
     this._domWrapper = document.getElementsByClassName('canvas')[0]
-    this._domPadding = parseFloat(window.getComputedStyle(this._domWrapper, null).getPropertyValue('padding'))
+    this._domPadding = parseFloat(window.getComputedStyle(this._domWrapper, null).getPropertyValue('padding-top') || 0)
     this._domButtonRow = document.querySelector('.content > .buttonRow')
     this.canvasSize = this._calcCanvasSize()
     this.lineWidth = this._defaultLineWidth
@@ -283,7 +283,7 @@ export default class CAEditor {
   }
 
   setPreset (preset) {
-        this.cellColorActive = preset.cellColorActive
+    this.cellColorActive = preset.cellColorActive
     this.cellColorInactive = preset.cellColorInactive
     this.showGrid = preset.showGrid
     this.trajectorySize = preset.trajectorySize

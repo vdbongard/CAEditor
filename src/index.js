@@ -285,7 +285,7 @@ domPresets.forEach(el => {
   presets.forEach((obj) => {
     const div = document.createElement('div')
     div.classList.add('preset', 'waves-effect', 'waves-blue')
-    div.append(obj.name)
+    div.innerText = obj.name
     div.addEventListener('click', () => {
       caEditor.setPreset(obj)
     })
