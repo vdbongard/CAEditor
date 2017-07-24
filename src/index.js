@@ -293,3 +293,36 @@ domPresets.forEach(el => {
     el.appendChild(div)
   })
 })
+
+window.addEventListener('keypress', e => {
+  const key = e.keyCode ? e.keyCode : e.which
+
+  if (key === 112 || key === 49)
+    Array.from(document.querySelectorAll(`.${buttons[0].id}`)).some(el => {
+      if (el.offsetParent !== null) {
+        el.click()
+        return true
+      }
+    })
+  else if (key === 115 || key === 50)
+    Array.from(document.querySelectorAll(`.${buttons[1].id}`)).some(el => {
+      if (el.offsetParent !== null) {
+        el.click()
+        return true
+      }
+    })
+  else if (key === 114 || key === 51)
+    Array.from(document.querySelectorAll(`.${buttons[2].id}`)).some(el => {
+      if (el.offsetParent !== null) {
+        el.click()
+        return true
+      }
+    })
+  else if (key === 99 || key === 52)
+    Array.from(document.querySelectorAll(`.${buttons[3].id}`)).some(el => {
+      if (el.offsetParent !== null) {
+        el.click()
+        return true
+      }
+    })
+})
