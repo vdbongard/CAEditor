@@ -182,10 +182,6 @@ const presets = [
   },
   {
     'name': 'Tumbler',
-    'cellColorInactive': 0xff6e42,
-    'cellColorActive': 0x8bc34a,
-    'showGrid': false,
-    'trajectorySize': 5,
     'cells': [
       [0, 1],
       [1, 0],
@@ -276,6 +272,12 @@ const presets = [
       [2, 1],
       [2, 2]
     ]
+  },
+  {
+    'name': 'Color',
+    'cellColorInactive': 0xff7043,
+    'cellColorActive': 0x8bc34a,
+    'showGrid': false
   }
 ]
 
