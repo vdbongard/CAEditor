@@ -125,7 +125,8 @@ body {
 }
 
 .setting span {
-    flex: 1
+    flex: 1;
+    line-height: 20px;
 }
 
 .preset {
